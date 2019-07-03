@@ -1,13 +1,16 @@
 const chalk = require("chalk");
 
 const express = require("express");
+const morgan = require("morgan");
+const router = express.Router();
 const path = require("path");
 const Sequelize = require("sequelize");
-const { User, Product } = require("./models/db.js");
+const { Student, Campus } = require("./models/db.js");
 
 const app = express();
 const PORT = 3000;
 
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -15,22 +18,23 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.static(path.join(__dirname, "./build")));
 
-app.post("/users", (req, res, next) => {
-  User.create({});
+//route all backend traffic that begins with the url '/api' to another file
+// app.use("/api", require(routerToOtherFile));
+
+app.post("/api/student", async (req, res, next) => {
+  await Student.create({});
   next();
 });
 
-app.get("/products", async (req, res, next) => {
-  // Product.create({
-  const data = await Product.findAll();
-  res.send(data);
-  // });
+app.get("/api/students", async (req, res, next) => {
+  const students = await Student.findAll();
+  res.send(students);
 });
 
-app.get("/users", async (req, res, next) => {
-  const users = await User.findAll();
+app.get("/api/campus", async (req, res, next) => {
+  const campus = await Campus.findAll();
 
-  res.send(users);
+  res.send(campus);
 });
 
 // app.get("/db", (req,res, next) => {

@@ -1,27 +1,26 @@
-const { db, User, Product } = require("./models/db.js");
+const { db, Student, Campus } = require("./models/db.js");
 
 const syncandseed = async () => {
   await db.sync({ force: true });
 
-  const moe = await User.create({
-    name: "Moe"
+  const atticus = await Student.create({
+    firstName: "Atticus",
+    lastName: "Finch",
+    email: "atticus@harvard.com",
+    GPA: 3.5
   });
-  const larry = await User.create({
-    name: "Larry"
+  const scout = await Student.create({
+    firstName: "Scout",
+    lastName: "Finch",
+    email: "scout@harvard.com",
+    GPA: 3.0
   });
-  const curly = await User.create({
-    name: "Curly"
+  const Harvard = await Campus.create({
+    name: "Harvard",
+    address: "123 Main St. USA",
+    description: "A GREAT SCHOOL!"
   });
 
-  const ipad = await Product.create({
-    name: "ipad"
-  });
-  const iwatch = await Product.create({
-    name: "iwatch"
-  });
-  const iphone = await Product.create({
-    name: "iphone"
-  });
   await db.close();
 };
 

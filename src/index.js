@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Products from "./components/products.js";
-import Home from "./components/home.js";
-import Users from "./components/users.js";
+import Students from "./components/students.js";
+import Campus from "./components/campus.js";
+
 // import db from "../.././models/db.js";
 const app = document.getElementById("app");
 
@@ -12,16 +12,12 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      count: 0
-    };
-    this.increaseCount = this.increaseCount.bind(this);
+    this.state = {};
   }
-  increaseCount() {
-    this.setState({
-      count: this.state.count + 1
-    });
-  }
+  // increaseCount() {
+  //   this.setState({
+  //     count: this.state.count + 1
+  //   });
 
   render() {
     return (
@@ -36,15 +32,13 @@ class Main extends React.Component {
           id="main"
           className="rowcontainer"
         >
-          <Link to="/home">Home</Link>
+          <Link to="/student">Students</Link>
 
-          <Link to="/products">Products</Link>
-
-          <Link to="/users">Users</Link>
+          <Link to="/campus">Campuses</Link>
         </div>
-        <Route path="/Home/" component={Home} />
-        <Route path="/products/" component={Products} />
-        <Route path="/users/" component={Users} />
+        <Route path="/student/" component={Students} />
+        <Route path="/campus/" component={Campus} />
+        {/* <Route path="/campus/:id" component={??} /> */}
       </div>
     );
   }
@@ -57,4 +51,4 @@ ReactDOM.render(
   app
 );
 
-// export default Main;
+export default Main;
