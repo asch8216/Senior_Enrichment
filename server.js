@@ -2,7 +2,7 @@ const chalk = require("chalk");
 
 const express = require("express");
 const morgan = require("morgan");
-const router = express.Router();
+const router = require("express").Router();
 const path = require("path");
 const Sequelize = require("sequelize");
 const { Student, Campus } = require("./models/db.js");
@@ -21,25 +21,46 @@ app.use(express.static(path.join(__dirname, "./build")));
 //route all backend traffic that begins with the url '/api' to another file
 // app.use("/api", require(routerToOtherFile));
 
-app.post("/api/student", async (req, res, next) => {
-  await Student.create({});
-  next();
-});
-
 app.get("/api/students", async (req, res, next) => {
-  const students = await Student.findAll();
-  res.send(students);
+  Student.findAll()
+    .then(students => res.json(students))
+    .catch(next);
 });
 
-app.get("/api/campus", async (req, res, next) => {
-  const campus = await Campus.findAll();
-
-  res.send(campus);
+app.get("/api/campuses", (req, res, next) => {
+  Campus.findAll()
+    .then(campuses => res.json(campuses))
+    .catch(next);
 });
 
-// app.get("/db", (req,res, next) => {
-//   res.s
-// })
+app.get("/campuses/:campusId", (req, res, next) => {
+  Campus.findById(req.params.campusId, {
+    include: [Student]
+  })
+    .then(campus => res.json(campus))
+    .catch(e => {
+      console.log("error in campus.findById", e);
+      next(e);
+    });
+});
+
+app.post("/api/campuses", (req, res, next) => {
+  Campus.create(req.body)
+    .then(campus => res.json(campus))
+    .catch(e => {
+      console.log("error in campus.create", e);
+      next(e);
+    });
+});
+
+app.post("/api/students", (req, res, next) => {
+  Student.create(req.body)
+    .then(student => res.json(student))
+    .catch(e => {
+      console.log("error in student.create", e);
+      next(e);
+    });
+});
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));

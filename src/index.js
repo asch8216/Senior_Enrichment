@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../store.js";
 import Students from "./components/students.js";
 import Campus from "./components/campus.js";
+import AddCampus from "./components/addCampus.js";
+import AddStudent from "./components/addStudent.js";
 
 // import db from "../.././models/db.js";
 const app = document.getElementById("app");
@@ -12,16 +16,12 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    // this.state = {};
   }
-  // increaseCount() {
-  //   this.setState({
-  //     count: this.state.count + 1
-  //   });
 
   render() {
     return (
-      <div>
+      <div className="play">
         <div
           style={{
             display: "flex",
@@ -30,14 +30,19 @@ class Main extends React.Component {
             alignItems: "center"
           }}
           id="main"
-          className="rowcontainer"
         >
           <Link to="/student">Students</Link>
 
           <Link to="/campus">Campuses</Link>
+
+          <Link to="/addcampus">Add A Campus</Link>
+
+          <Link to="/addstudent">Add A Student</Link>
         </div>
-        <Route path="/student/" component={Students} />
-        <Route path="/campus/" component={Campus} />
+        <Route exact path="/student/" component={Students} />
+        <Route exact path="/campus/" component={Campus} />
+        <Route path="/addcampus/" component={AddCampus} />
+        <Route path="/addstudent" component={AddStudent} />
         {/* <Route path="/campus/:id" component={??} /> */}
       </div>
     );
@@ -45,9 +50,11 @@ class Main extends React.Component {
 }
 
 ReactDOM.render(
-  <Router>
-    <Main />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <Main />
+    </Router>
+  </Provider>,
   app
 );
 
