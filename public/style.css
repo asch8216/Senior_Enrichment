@@ -16,6 +16,10 @@ form {
   margin: 20px;
   padding: 20px 20px 20px 20px;
 }
+
+delete-button {
+  background-color: red;
+}
 form-row {
   display: flex;
   padding: "10px";

@@ -1,15 +1,19 @@
 import { createStore, applyMiddleware } from "redux";
 import loggerMiddleware from "redux-logger";
-import thunkMiddleware from "redux-thunk";
+//import thunkMiddleware from "redux-thunk";
+import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import axios from "axios";
 
 // action type
 const GET_STUDENTS = "GET_STUDENTS";
 const GET_NEW_STUDENT = "GET_NEW_STUDENT";
+const DELETE_A_STUDENT = "DELETE_A_STUDENT";
 
+const DELETE_A_CAMPUS = "DELETE_A_CAMPUS";
 const GET_CAMPUSES = "GET_CAMPUSES";
 const GET_NEW_CAMPUS = "GET_NEW_CAMPUS";
+const SINGLE_CAMPUS = "SINGLE_CAMPUS";
 
 //initial state
 const initialState = {
@@ -44,6 +48,29 @@ export const getNewCampus = campus => {
   return {
     type: GET_NEW_CAMPUS,
     campus: campus
+  };
+};
+
+const deleteACampus = id => {
+  return {
+    //this is ACTION we are dispatching should match in reducer
+    type: DELETE_A_CAMPUS,
+    campus: id
+  };
+};
+
+const deleteAStudent = id => {
+  return {
+    //this is ACTION we are dispatching should match in reducer
+    type: DELETE_A_STUDENT,
+    student: id
+  };
+};
+
+const singleCampus = id => {
+  return {
+    type: SINGLE_CAMPUS,
+    campus: id
   };
 };
 
@@ -89,7 +116,6 @@ export function fetchStudents() {
 
 export function fetchCampus() {
   return function thunk(dispatch) {
-    console.log("IN THUNK");
     return axios
       .get("/api/campuses")
       .then(res => res.data)
@@ -99,6 +125,45 @@ export function fetchCampus() {
       })
       .catch(e => {
         console.log("in fetch campus error", e);
+      });
+  };
+}
+
+export function removeACampus(id) {
+  return function thunk(dispatch) {
+    return (
+      axios
+        .delete(`/api/campuses/${id}`)
+        //questioning this syntax below
+        .then(dispatch(deleteACampus(id)))
+        .catch(e => {
+          console.log("error in remove a campus thunk", e);
+        })
+    );
+  };
+}
+
+export function removeAStudent(id) {
+  return function thunk(dispatch) {
+    return (
+      axios
+        .delete(`/api/students/${id}`)
+        //questioning this syntax below
+        .then(dispatch(deleteAStudent(id)))
+        .catch(e => {
+          console.log("error in remove a campus thunk", e);
+        })
+    );
+  };
+}
+
+export function fetchACampus(id) {
+  return function thunk(dispatch) {
+    return axios
+      .get(`/api/campuses/${id}`)
+      .then(dispatch(singleCampus(id)))
+      .catch(e => {
+        console.error("error in fetch a campus thunk", e);
       });
   };
 }
@@ -130,6 +195,33 @@ const reducer = (state = initialState, action) => {
         campuses: [...state.campuses, action.campus]
       };
 
+    case DELETE_A_CAMPUS:
+      const filteredCampus = state.campuses.filter(campus => {
+        return campus.id !== action.campus;
+      });
+      return {
+        ...state,
+        campuses: filteredCampus
+      };
+
+    case DELETE_A_STUDENT:
+      const filteredStudent = state.students.filter(student => {
+        return student.id !== action.student;
+      });
+      return {
+        ...state,
+        students: filteredStudent
+      };
+
+    case SINGLE_CAMPUS:
+      const filteredSingleCampus = state.campuses.filter(campus => {
+        return campus.id === action.campus;
+      });
+      return {
+        ...state,
+        campuses: filteredSingleCampus
+      };
+
     default:
       return state;
   }
@@ -137,6 +229,6 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(
   reducer,
-  applyMiddleware(loggerMiddleware, thunkMiddleware)
+  composeWithDevTools(applyMiddleware(loggerMiddleware, thunk))
 );
 export default store;

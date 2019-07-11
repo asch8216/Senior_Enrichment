@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { fetchCampus, removeACampus } from "../../store.js";
+import { fetchACampus, removeACampus } from "../../store.js";
 
 import { connect } from "react-redux";
 
-class Campus extends React.Component {
+class SingleCampus extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,12 +15,13 @@ class Campus extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchCampus();
+    this.props.fetchACampus(this.props.match.params.id);
   }
   render() {
-    console.log("campusprops***", this.props);
+    console.log("singlecampusprops***", this.props);
     return (
       <div>
+        <h1>thisis isingle campus view</h1>
         <ul>
           <div>
             {this.props.campuses.map(campus => {
@@ -65,16 +66,16 @@ const mapStateToProps = (state, ownProps) => {
 //questioning use of fetchCampus: () => dispatch(fetchCampus())
 const mapDispatchToProps = dispatch => {
   return {
-    removeACampus: id => dispatch(removeACampus(id)),
-    fetchCampus: () => dispatch(fetchCampus())
+    // removeACampus: id => dispatch(removeACampus(id)),
+    fetchACampus: id => dispatch(fetchACampus(id))
   };
 };
 
 //connect allows to connect to store
 //pass in null if there is no mapstatetoprops
 //what curcumstances would you not have mapstatetoprops?
-const connectedCampus = connect(
+const connectedSingleCampus = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Campus);
-export default connectedCampus;
+)(SingleCampus);
+export default connectedSingleCampus;

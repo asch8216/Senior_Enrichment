@@ -65,14 +65,7 @@ export default class AddStudent extends Component {
             onChange={this.handleChange}
             value={this.state.GPA}
           />
-          <button
-            style={{
-              backgroundColor: "dodgerblue",
-              border: "black"
-            }}
-          >
-            Submit form
-          </button>
+          <button className="button">Submit form</button>
         </form>
       </div>
     );

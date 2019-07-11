@@ -8,6 +8,8 @@ import Students from "./components/students.js";
 import Campus from "./components/campus.js";
 import AddCampus from "./components/addCampus.js";
 import AddStudent from "./components/addStudent.js";
+import SingleStudent from "./components/SingleStudent.js";
+import SingleCampus from "./components/SingleCampus.js";
 
 // import db from "../.././models/db.js";
 const app = document.getElementById("app");
@@ -43,7 +45,8 @@ class Main extends React.Component {
         <Route exact path="/campus/" component={Campus} />
         <Route path="/addcampus/" component={AddCampus} />
         <Route path="/addstudent" component={AddStudent} />
-        {/* <Route path="/campus/:id" component={??} /> */}
+        <Route path="/campus/:id" component={SingleCampus} />
+        <Route path="/student/:id" component={SingleStudent} />
       </div>
     );
   }

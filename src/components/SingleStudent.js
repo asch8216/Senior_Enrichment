@@ -24,13 +24,11 @@ class Students extends React.Component {
             {this.props.students.map(student => {
               return (
                 <li key={student.id}>
-                  <Link to={`/students/${student.id}`}>
-                    {student.firstName} {student.lastName}
-                  </Link>
-
+                  {student.firstName} {student.lastName}
                   <div>
                     <a href={`mailto:${student.email}`}>{student.email}</a>
                     <div>Student GPA: {student.GPA}</div>
+                    <Link to={`/students/${student.id}`}>{student.name}</Link>
                   </div>
                   <button
                     type="button"
