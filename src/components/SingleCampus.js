@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { fetchACampus, removeACampus } from "../../store.js";
+
+import { fetchACampus } from "../../store.js";
 
 import { connect } from "react-redux";
 
 class SingleCampus extends React.Component {
   constructor(props) {
     super(props);
-
     // this.state = {
     //   campuses: []
     // };
@@ -18,36 +17,13 @@ class SingleCampus extends React.Component {
     this.props.fetchACampus(this.props.match.params.id);
   }
   render() {
-    console.log("singlecampusprops***", this.props);
+    console.log("this.props.match.params***", this.props.match.params);
     return (
       <div>
-        <h1>thisis isingle campus view</h1>
-        <ul>
-          <div>
-            {this.props.campuses.map(campus => {
-              return (
-                <li key={campus.id}>
-                  <a>
-                    <img src={campus.imageURL} />
-                  </a>
-
-                  <div>
-                    {<Link to={`/campus/${campus.id}`}>{campus.name}</Link>}
-                    <div>Address: {campus.address}</div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => this.props.removeACampus(campus.id)}
-                    className="delete"
-                  >
-                    X Delete
-                  </button>
-                </li>
-              );
-            })}
-          </div>
-        </ul>
+        {/* // { {({ campus } = this.props.campuses[0])}
+      // <h1>thisis single campus</h1> */}
+        <h1>{this.props.singleCampus.name}</h1>
+        <h2>{this.props.singleCampus.address}</h2>
       </div>
     );
   }
@@ -57,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
   console.log("state", state); // state
   console.log("props", ownProps); // {}
   return {
-    campuses: state.campuses
+    singleCampus: state.singleCampus
   };
 };
 

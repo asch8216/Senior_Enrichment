@@ -39,11 +39,9 @@ app.get("/api/campuses", (req, res, next) => {
 //colon variable used when defining routes but not on the front end
 app.get("/api/campuses/:campusId", (req, res, next) => {
   console.log("this is req.params", req.params);
-  Campus.findByPk(
-    req.params.campusId
-    // , {
-    // include: [Student]}
-  )
+  Campus.findByPk(req.params.campusId, {
+    include: [Student]
+  })
     .then(campus => res.json(campus))
     .catch(e => {
       console.log("error in campus.findById", e);

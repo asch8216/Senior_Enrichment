@@ -8,45 +8,37 @@ import { connect } from "react-redux";
 class Campus extends React.Component {
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //   campuses: []
-    // };
   }
 
   componentDidMount() {
     this.props.fetchCampus();
   }
   render() {
-    console.log("campusprops***", this.props);
     return (
-      <div>
-        <ul>
-          <div>
-            {this.props.campuses.map(campus => {
-              return (
-                <li key={campus.id}>
-                  <a>
-                    <img src={campus.imageURL} />
-                  </a>
+      <div className="container">
+        {this.props.campuses.map(campus => {
+          return (
+            <div key={campus.id} className="card">
+              <li>
+                <a className="img">
+                  <img src={campus.imageURL} />
+                </a>
 
-                  <div>
-                    {<Link to={`/campus/${campus.id}`}>{campus.name}</Link>}
-                    <div>Address: {campus.address}</div>
-                  </div>
+                <div className="link">
+                  {<Link to={`/campus/${campus.id}`}>{campus.name}</Link>}
+                </div>
 
-                  <button
-                    type="button"
-                    onClick={() => this.props.removeACampus(campus.id)}
-                    className="delete"
-                  >
-                    X Delete
-                  </button>
-                </li>
-              );
-            })}
-          </div>
-        </ul>
+                <button
+                  className="delete-button"
+                  type="button"
+                  onClick={() => this.props.removeACampus(campus.id)}
+                >
+                  X Delete
+                </button>
+              </li>
+            </div>
+          );
+        })}
       </div>
     );
   }

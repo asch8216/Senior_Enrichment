@@ -9,6 +9,7 @@ import axios from "axios";
 const GET_STUDENTS = "GET_STUDENTS";
 const GET_NEW_STUDENT = "GET_NEW_STUDENT";
 const DELETE_A_STUDENT = "DELETE_A_STUDENT";
+const SINGLE_STUDENT = "SINGLE_STUDENT";
 
 const DELETE_A_CAMPUS = "DELETE_A_CAMPUS";
 const GET_CAMPUSES = "GET_CAMPUSES";
@@ -18,9 +19,9 @@ const SINGLE_CAMPUS = "SINGLE_CAMPUS";
 //initial state
 const initialState = {
   campuses: [],
-  students: []
-  // newStudent: { firstName: "", lastName: "", email: "", GPA: 0 },
-  // newCampus: { name: "", address: "", description: "" }
+  students: [],
+  singleStudent: {},
+  singleCampus: {}
 };
 
 //action creators
@@ -66,11 +67,18 @@ const deleteAStudent = id => {
     student: id
   };
 };
-
-const singleCampus = id => {
+//coming from single campus thunk accessed with action.campus
+const singleCampus = campus => {
   return {
     type: SINGLE_CAMPUS,
-    campus: id
+    campus: campus
+  };
+};
+
+const singleStudent = student => {
+  return {
+    type: SINGLE_STUDENT,
+    student: student
   };
 };
 
@@ -161,7 +169,24 @@ export function fetchACampus(id) {
   return function thunk(dispatch) {
     return axios
       .get(`/api/campuses/${id}`)
-      .then(dispatch(singleCampus(id)))
+      .then(res => res.data)
+      .then(campus => {
+        dispatch(singleCampus(campus));
+      })
+      .catch(e => {
+        console.error("error in fetch a campus thunk", e);
+      });
+  };
+}
+
+export function fetchAStudent(id) {
+  return function thunk(dispatch) {
+    return axios
+      .get(`/api/students/${id}`)
+      .then(res => res.data)
+      .then(student => {
+        dispatch(singleStudent(student));
+      })
       .catch(e => {
         console.error("error in fetch a campus thunk", e);
       });
@@ -171,7 +196,7 @@ export function fetchACampus(id) {
 //reducer
 
 const reducer = (state = initialState, action) => {
-  console.log("in reducer", action);
+  console.log("in reducer", state);
   switch (action.type) {
     case GET_STUDENTS:
       return {
@@ -214,13 +239,19 @@ const reducer = (state = initialState, action) => {
       };
 
     case SINGLE_CAMPUS:
-      const filteredSingleCampus = state.campuses.filter(campus => {
-        return campus.id === action.campus;
-      });
       return {
         ...state,
-        campuses: filteredSingleCampus
+        singleCampus: action.campus
       };
+
+    case SINGLE_STUDENT:
+      // we want to put a single student object on state. What is the action that matches SINGLE_STUDENT?
+      //given and ID, go find the student on state with that ID and set it at singelStudent
+
+      //going to db to get a single student depending on match.params
+      return { ...state, singleStudent: action.student };
+
+    // how can we write this function to accomplish the above?
 
     default:
       return state;

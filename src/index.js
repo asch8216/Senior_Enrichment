@@ -23,15 +23,18 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div className="play">
+      <div>
         <div
           style={{
             display: "flex",
+            width: "90%",
+            height: "50px",
             flexDirection: "row",
             justifyContent: "space-around",
-            alignItems: "center"
+            alignItems: "center",
+            backgroundColor: "white",
+            color: "white"
           }}
-          id="main"
         >
           <Link to="/student">Students</Link>
 

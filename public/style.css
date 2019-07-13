@@ -1,24 +1,54 @@
-play {
-  font-family: sans-serif;
-  text-align: center;
-  font-weight: 100;
-  font-size: 13rem;
-  margin: 2rem 0;
-  letter-spacing: -1px;
-  text-shadow: 0px 4px 0 rgba(18, 86, 136, 0.11);
+.container {
+  display: inline-flex;
+  max-width: 90%;
+  /* justify-content: left; */
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 2px 16px;
+  background-color: rgb(75, 113, 170);
+}
+
+.card {
+  /* display: flex; */
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 225px;
+  border: solid white 5px;
+  padding: 50px;
+  max-width: 35%;
+  background-color: gray;
+  justify-content: center;
+}
+img {
+  justify-content: center;
+  border-radius: 50px;
+  align-items: center;
+  height: 200px;
+}
+.navbar {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+link {
+  color: black;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
+  justify-content: center;
+  align-items: center;
   margin: 20px;
   padding: 20px 20px 20px 20px;
 }
 
 delete-button {
   background-color: red;
+  color: white;
 }
 form-row {
   display: flex;
@@ -28,5 +58,6 @@ form-row {
 }
 
 button {
-  background-color: dodgerblue;
+  background-color: red;
+  color: white;
 }

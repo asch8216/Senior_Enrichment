@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { fetchStudents, removeAStudent } from "../../store.js";
+import { fetchAStudent } from "../../store.js";
 import { Provider, connect } from "react-redux";
 
-class Students extends React.Component {
+class SingleStudent extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,12 +13,14 @@ class Students extends React.Component {
     // axios.get("/api/students").then(res => {
     //   this.setState({ students: res.data });
     // });
-    this.props.fetchStudents();
+    this.props.fetchAStudent(this.props.match.params.id);
   }
 
   render() {
+    console.log("singlestudentprops********", this.props);
     return (
       <div>
+        <h1>SingleStudent view</h1>
         <ul>
           <div>
             {this.props.students.map(student => {
@@ -56,13 +58,13 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchStudents: () => dispatch(fetchStudents()),
-    removeAStudent: id => dispatch(removeAStudent(id))
+    fetchAStudent: id => dispatch(fetchAStudent(id))
+    // removeAStudent: id => dispatch(removeAStudent(id))
   };
 };
 
-const connectedStudents = connect(
+const connectedSingleStudent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Students);
-export default connectedStudents;
+)(SingleStudent);
+export default connectedSingleStudent;

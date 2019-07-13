@@ -18,33 +18,32 @@ class Students extends React.Component {
 
   render() {
     return (
-      <div>
-        <ul>
-          <div>
-            {this.props.students.map(student => {
-              return (
-                <li key={student.id}>
-                  <Link to={`/students/${student.id}`}>
-                    {student.firstName} {student.lastName}
+      <div className="container">
+        {this.props.students.map(student => {
+          return (
+            <div key={student.id} className="card">
+              <li>
+                <a className="img">
+                  <img src={student.imageURL} />
+                </a>
+                <div className="link">
+                  <Link to={`/student/${student.id}`}>
+                    {`${student.firstName} ${student.lastName}`}
                   </Link>
+                </div>
 
-                  <div>
-                    <a href={`mailto:${student.email}`}>{student.email}</a>
-                    <div>Student GPA: {student.GPA}</div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => this.props.removeAStudent(student.id)}
-                    className="delete"
-                    className="delete-button"
-                  >
-                    X Delete{" "}
-                  </button>
-                </li>
-              );
-            })}
-          </div>
-        </ul>
+                <button
+                  type="button"
+                  className="delete"
+                  className="delete-button"
+                  onClick={() => this.props.removeAStudent(student.id)}
+                >
+                  X Delete
+                </button>
+              </li>
+            </div>
+          );
+        })}
       </div>
     );
   }
