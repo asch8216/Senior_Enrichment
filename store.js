@@ -196,7 +196,6 @@ export function fetchAStudent(id) {
 //reducer
 
 const reducer = (state = initialState, action) => {
-  console.log("in reducer", state);
   switch (action.type) {
     case GET_STUDENTS:
       return {

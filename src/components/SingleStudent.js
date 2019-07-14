@@ -1,14 +1,25 @@
 import React from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import { fetchAStudent } from "../../store.js";
-import { Provider, connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+function DisplayCampus(props) {
+  if (props.campus && props.campus.name) {
+    return <p>{`This students is enrolled at ${props.campus.name}`}</p>;
+  } else {
+    return <p>This student is not enrolled in school</p>;
+  }
+}
+
+// function DisplayCampus(props) {
+//   if (props.campus.name && props.campus.name == "") {
+//     return <p>This student is not enrolled in school</p>;
+//   } else {
+//     return <p>{`This students is enrolled at ${props.campus.name}`}</p>;
+//   }
+// }
 
 class SingleStudent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     // axios.get("/api/students").then(res => {
     //   this.setState({ students: res.data });
@@ -17,34 +28,27 @@ class SingleStudent extends React.Component {
   }
 
   render() {
+    const {
+      firstName,
+      lastName,
+      imageURL,
+      email,
+      GPA,
+      campus
+    } = this.props.singleStudent;
     console.log("singlestudentprops********", this.props);
     return (
       <div>
-        <h1>SingleStudent view</h1>
-        <ul>
-          <div>
-            {this.props.students.map(student => {
-              return (
-                <li key={student.id}>
-                  {student.firstName} {student.lastName}
-                  <div>
-                    <a href={`mailto:${student.email}`}>{student.email}</a>
-                    <div>Student GPA: {student.GPA}</div>
-                    <Link to={`/students/${student.id}`}>{student.name}</Link>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => this.props.removeAStudent(student.id)}
-                    className="delete"
-                    className="delete-button"
-                  >
-                    X Delete{" "}
-                  </button>
-                </li>
-              );
-            })}
-          </div>
-        </ul>
+        <h1>in the single page</h1>
+        <h1>{`${firstName} ${lastName}`}</h1>
+        <a className="img">
+          <img src={imageURL} />
+        </a>
+        <h2>{email}</h2>
+        <p>{`${firstName} ${lastName} has a GPA of ${GPA}
+        `}</p>
+
+        <DisplayCampus campus={campus} />
       </div>
     );
   }
@@ -52,7 +56,7 @@ class SingleStudent extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    students: state.students
+    singleStudent: state.singleStudent
   };
 };
 
