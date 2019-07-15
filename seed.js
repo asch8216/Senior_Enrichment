@@ -1,3 +1,4 @@
+const faker = require("faker");
 const { db, Student, Campus } = require("./models/db.js");
 
 const syncandseed = async () => {
@@ -11,42 +12,49 @@ const syncandseed = async () => {
   await Campus.create({
     name: "Radcliffe",
     address: "123 Main St. USA",
-    description: "Across the street"
+    description: "Across the street",
+    imageURL: faker.image.city()
   });
 
   await Campus.create({
     name: "Boston College",
     address: "123 Main St. Massachusetts USA",
-    description: "Go eagles"
+    description: "Go eagles",
+    imageURL: faker.image.city()
   });
 
   await Campus.create({
     name: "University of Southern California",
     address: "123 Main St. California USA",
-    description: "We are going surfing today"
+    description: "We are going surfing today",
+    imageURL: faker.image.city()
   });
 
   await Campus.create({
     name: "University of South Carolina",
     address: "123 Main St. South Carolina",
-    description: "Go gamecocks"
+    description: "Go gamecocks",
+    imageURL: faker.image.city()
   });
 
   await Campus.create({
     name: "University of Georgia",
     address: "123 Main St. Athens Georgia",
-    description: "Go dawgs"
+    description: "Go dawgs",
+    imageURL: faker.image.city()
   });
   await Campus.create({
     name: "University of Alabama",
     address: "123 Main St. Tuscaloosa Alabame",
-    description: "We love Bear Bryant"
+    description: "We love Bear Bryant",
+    imageURL: faker.image.city()
   });
 
   await Student.create({
     firstName: "Atticus",
     lastName: "Finch",
     email: "atticus@harvard.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.5,
     campusId: 2
   });
@@ -55,6 +63,7 @@ const syncandseed = async () => {
     lastName: "Finch",
     email: "scout@harvard.com",
     GPA: 3.0,
+    imageURL: faker.image.avatar(),
     campusId: 1
   });
 
@@ -62,12 +71,14 @@ const syncandseed = async () => {
     firstName: "Jem",
     lastName: "Finch",
     email: "jem@USC.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 3
   });
   await Student.create({
     firstName: "Boo",
     lastName: "Radley",
+    imageURL: faker.image.avatar(),
     email: "Boo@Unf.com",
     GPA: 3.0,
     campusId: 1
@@ -76,6 +87,7 @@ const syncandseed = async () => {
     firstName: "Mayella",
     lastName: "Ewell",
     email: "Mayella@abc.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 5
   });
@@ -84,6 +96,7 @@ const syncandseed = async () => {
     firstName: "Dill",
     lastName: "Harris",
     email: "Dill@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 7
   });
@@ -92,6 +105,7 @@ const syncandseed = async () => {
     firstName: "Calpurnia",
     lastName: "Smith",
     email: "Cal@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 2.0,
     campusId: 1
   });
@@ -100,6 +114,7 @@ const syncandseed = async () => {
     firstName: "Tom",
     lastName: "Robinson",
     email: "tom@UF.com",
+    imageURL: faker.image.avatar(),
     GPA: 4.0,
     campusId: 5
   });
@@ -108,6 +123,7 @@ const syncandseed = async () => {
     firstName: "Boo",
     lastName: "Radley",
     email: "Boo@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 1
   });
@@ -116,6 +132,7 @@ const syncandseed = async () => {
     firstName: "Maude",
     lastName: "Atkinson",
     email: "maude@UF.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 7
   });
@@ -124,6 +141,7 @@ const syncandseed = async () => {
     firstName: "Aunt",
     lastName: "Alexandra",
     email: "aunt@gmail.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 6
   });
@@ -132,6 +150,7 @@ const syncandseed = async () => {
     firstName: "Nathan",
     lastName: "Radley",
     email: "nathan@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 4
   });
@@ -140,6 +159,7 @@ const syncandseed = async () => {
     firstName: "Heck",
     lastName: "Tate",
     email: "Heck@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 4
   });
@@ -148,6 +168,7 @@ const syncandseed = async () => {
     firstName: "Dolphus",
     lastName: "Raymond",
     email: "Dolph@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 3
   });
@@ -156,6 +177,7 @@ const syncandseed = async () => {
     firstName: "Walter",
     lastName: "Cunningham",
     email: "Boo@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 2
   });
@@ -164,6 +186,7 @@ const syncandseed = async () => {
     firstName: "Henry",
     lastName: "Dubose",
     email: "henry@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 2
   });
@@ -172,6 +195,7 @@ const syncandseed = async () => {
     firstName: "George",
     lastName: "Costanza",
     email: "Boo@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 2.0,
     campusId: 4
   });
@@ -180,6 +204,7 @@ const syncandseed = async () => {
     firstName: "Jerry",
     lastName: "Seinfeld",
     email: "Jerry@UF.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 5
   });
@@ -188,6 +213,7 @@ const syncandseed = async () => {
     firstName: "Elaine",
     lastName: "Benes",
     email: "Elaine@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 7
   });
@@ -196,6 +222,7 @@ const syncandseed = async () => {
     firstName: "Cosmo",
     lastName: "Kramer",
     email: "Cosmo@Unf.com",
+    imageURL: faker.image.avatar(),
     GPA: 1.0,
     campusId: 7
   });
@@ -204,6 +231,7 @@ const syncandseed = async () => {
     firstName: "Newman",
     lastName: "Newman",
     email: "Newman@USC.com",
+    imageURL: faker.image.avatar(),
     GPA: 3.0,
     campusId: 6
   });

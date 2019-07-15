@@ -11,14 +11,6 @@ function DisplayCampus(props) {
   }
 }
 
-// function DisplayCampus(props) {
-//   if (props.campus.name && props.campus.name == "") {
-//     return <p>This student is not enrolled in school</p>;
-//   } else {
-//     return <p>{`This students is enrolled at ${props.campus.name}`}</p>;
-//   }
-// }
-
 class SingleStudent extends React.Component {
   componentDidMount() {
     // axios.get("/api/students").then(res => {
@@ -36,10 +28,9 @@ class SingleStudent extends React.Component {
       GPA,
       campus
     } = this.props.singleStudent;
-    console.log("singlestudentprops********", this.props);
+
     return (
       <div>
-        <h1>in the single page</h1>
         <h1>{`${firstName} ${lastName}`}</h1>
         <a className="img">
           <img src={imageURL} />
